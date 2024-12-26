@@ -91,7 +91,7 @@ router.put('/:id', getBook, async (req, res) => {
 })
 
 //manejar el patch
-router.put('/:id', getBook, async (req, res) => {
+router.patch('/:id', getBook, async (req, res) => {
   if (!(req.body.title || req.body.author || req.body.genre || req.body.publication_date))
     return res.status(400).json({ message: `Should submit one of the following fields: 'title', 'author', 'genre', 'publication_date'`})
 
@@ -114,7 +114,7 @@ router.put('/:id', getBook, async (req, res) => {
 router.delete('/:id', getBook, async (req, res) => {
   try{
     const book = res.book
-    book.deleteOne({ _id: book._id })
+    await book.deleteOne({ _id: book._id })
     res.json({ message: 'Book deleted succesfully' })
   }
 
